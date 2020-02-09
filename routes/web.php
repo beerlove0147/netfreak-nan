@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('home', function () {
+    return redirect('series');
+});
+
 Auth::routes();
 
 Route::get('/test-video', function () {
@@ -66,6 +70,16 @@ route::get('/series/{serie}',function(\App\Serie $serie) {
 
     return view('serie.show')->with([
         'serie'=> $serie
+    ]);
+});
+
+route::get('/episodes/{episode}',function(\App\Episode $episode) {
+    // $serie = \App\Serie::find($id);
+    //return $episode;
+    $playerTemplate = 'partials.' . $episode->hosting .'-video-player';
+    return view('episode.show')->with([
+        'episode'=> $episode,
+        'playerTemplate' => $playerTemplate,
     ]);
 });
 
